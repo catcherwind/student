@@ -1,26 +1,24 @@
 #include <stdio.h>
-#include <Windows.h> //русский для Consolas
-#include <string.h> // строки
-#include <time.h> // определение текущей даты
+#include <Windows.h> //СЂСѓСЃСЃРєРёР№ РґР»СЏ Consolas
+#include <string.h> // СЃС‚СЂРѕРєРё
+#include <time.h> // РѕРїСЂРµРґРµР»РµРЅРёРµ С‚РµРєСѓС‰РµР№ РґР°С‚С‹
 
-
-
-#define N 25 //максимальная длина строки
+#define N 25 //РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РґР»РёРЅР° СЃС‚СЂРѕРєРё
 
 struct date{
-    int day; //ДЕНЬ рождения
-    int month; //МЕСЯЦ рождения
-    int year; //ГОД рождения
+    int day; //Р”Р•РќР¬ СЂРѕР¶РґРµРЅРёСЏ
+    int month; //РњР•РЎРЇР¦ СЂРѕР¶РґРµРЅРёСЏ
+    int year; //Р“РћР” СЂРѕР¶РґРµРЅРёСЏ
 };
 struct studinfo{
-    int id; //номер студента в базе
-    char fam[N]; //фамилия
-    char name[N]; //имя
-    char group[N]; //группа
-    char studnum[N]; //номер студенческого
-    struct date data; //ДАТА рождения
+    int id; //РЅРѕРјРµСЂ СЃС‚СѓРґРµРЅС‚Р° РІ Р±Р°Р·Рµ
+    char fam[N]; //С„Р°РјРёР»РёСЏ
+    char name[N]; //РёРјСЏ
+    char group[N]; //РіСЂСѓРїРїР°
+    char studnum[N]; //РЅРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ
+    struct date data; //Р”РђРўРђ СЂРѕР¶РґРµРЅРёСЏ
 };
-//объявление функций
+//РѕР±СЉСЏРІР»РµРЅРёРµ С„СѓРЅРєС†РёР№
 void chan(char *fname);
 void pri(char *fname, int id);
 void fil(char *fname, int id);
@@ -38,42 +36,42 @@ int main() {
     printf("                        and open the 'Properties' section.\n");
     printf("                                   Thank you!\n\n");
     system("pause");
-    SetConsoleCP(1251); //подключение РЯ для корректного ввода
-    SetConsoleOutputCP(1251); //и вывода
+    SetConsoleCP(1251); //РїРѕРґРєР»СЋС‡РµРЅРёРµ Р РЇ РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ РІРІРѕРґР°
+    SetConsoleOutputCP(1251); //Рё РІС‹РІРѕРґР°
 
-    int id; //количество элементов в файле.
-    diz(); //здесь и далее - дизайн
-    printf("                        ДОБРО ПОЖАЛОВАТЬ!\n\n");
-    //Определение имени файла
-    printf("Для работы с базой данных ");
-    printf("введите её название (имя файла) с расширением .bin\n");
+    int id; //РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ С„Р°Р№Р»Рµ.
+    diz(); //Р·РґРµСЃСЊ Рё РґР°Р»РµРµ - РґРёР·Р°Р№РЅ
+    printf("                        Р”РћР‘Р Рћ РџРћР–РђР›РћР’РђРўР¬!\n\n");
+    //РћРїСЂРµРґРµР»РµРЅРёРµ РёРјРµРЅРё С„Р°Р№Р»Р°
+    printf("Р”Р»СЏ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С… ");
+    printf("РІРІРµРґРёС‚Рµ РµС‘ РЅР°Р·РІР°РЅРёРµ (РёРјСЏ С„Р°Р№Р»Р°) СЃ СЂР°СЃС€РёСЂРµРЅРёРµРј .bin\n");
     char fname[N];
     scanf("%s", &fname);
-    //Проверка существования/правильности имени файла
-    int ot = 0; //Переменная для проверки, точно ли имя файла введено верно
+    //РџСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ/РїСЂР°РІРёР»СЊРЅРѕСЃС‚Рё РёРјРµРЅРё С„Р°Р№Р»Р°
+    int ot = 0; //РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё, С‚РѕС‡РЅРѕ Р»Рё РёРјСЏ С„Р°Р№Р»Р° РІРІРµРґРµРЅРѕ РІРµСЂРЅРѕ
     FILE *file = NULL;
     while (ot != 1){
         if((file = fopen(fname, "rb")) == NULL) {
             fclose(file);
-            printf("Данного файла не существует. Создать файл? 1 - да, 2 - нет\n");
+            printf("Р”Р°РЅРЅРѕРіРѕ С„Р°Р№Р»Р° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚. РЎРѕР·РґР°С‚СЊ С„Р°Р№Р»? 1 - РґР°, 2 - РЅРµС‚\n");
             scanf("%d", &ot);
             if (ot == 1) {
-                printf("Файл создан.\n\n");
+                printf("Р¤Р°Р№Р» СЃРѕР·РґР°РЅ.\n\n");
                 file = fopen(fname, "wb");
                 ot = 1;
                 id = 0;
                 fclose(file);
             }
             else {
-                printf("Введите верное имя файла с расширением .bin \n");
+                printf("Р’РІРµРґРёС‚Рµ РІРµСЂРЅРѕРµ РёРјСЏ С„Р°Р№Р»Р° СЃ СЂР°СЃС€РёСЂРµРЅРёРµРј .bin \n");
                 scanf("%s", &fname);
             }
         }
         else {
-            printf("Файл найден.\n\n");
+            printf("Р¤Р°Р№Р» РЅР°Р№РґРµРЅ.\n\n");
             fclose(file);
-            FILE *lastID = NULL; //lastID - файл, хранящий только кол-во переменных
-            lastID = fopen("lastID.bin", "r+b"); //Считывание кол-ва переменных в базе
+            FILE *lastID = NULL; //lastID - С„Р°Р№Р», С…СЂР°РЅСЏС‰РёР№ С‚РѕР»СЊРєРѕ РєРѕР»-РІРѕ РїРµСЂРµРјРµРЅРЅС‹С…
+            lastID = fopen("lastID.bin", "r+b"); //РЎС‡РёС‚С‹РІР°РЅРёРµ РєРѕР»-РІР° РїРµСЂРµРјРµРЅРЅС‹С… РІ Р±Р°Р·Рµ
             fread(&id, sizeof(int), 1, lastID);
             fclose(lastID);
             ot = 1;
@@ -82,21 +80,21 @@ int main() {
 
     system("pause");
     diz();
-    //ОСНОВНАЯ ЧАСТЬ!!
+    //РћРЎРќРћР’РќРђРЇ Р§РђРЎРўР¬!!
     int input = -1;
     while (input) {
         diz();
 
-        printf("                        МЕНЮ\n\n");
-        printf("1 - Добавить студента \n");
-        printf("2 - Удалить студента \n");
-        printf("3 - Изменить данные о студенте  \n");
-        printf("4 - Вывести список студентов \n");
-        printf("5 - Вывести список студентов по фильтру \n");
-        printf("6 - Вывести отсортированный список студентов\n");
-        printf("7 - Сведения о разработчиках\n");
-        printf("0 - Выход \n\n");
-        printf("Введите номер выполняемого действия: ");
+        printf("                        РњР•РќР®\n\n");
+        printf("1 - Р”РѕР±Р°РІРёС‚СЊ СЃС‚СѓРґРµРЅС‚Р° \n");
+        printf("2 - РЈРґР°Р»РёС‚СЊ СЃС‚СѓРґРµРЅС‚Р° \n");
+        printf("3 - РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ СЃС‚СѓРґРµРЅС‚Рµ  \n");
+        printf("4 - Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ \n");
+        printf("5 - Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ РїРѕ С„РёР»СЊС‚СЂСѓ \n");
+        printf("6 - Р’С‹РІРµСЃС‚Рё РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ\n");
+        printf("7 - РЎРІРµРґРµРЅРёСЏ Рѕ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°С…\n");
+        printf("0 - Р’С‹С…РѕРґ \n\n");
+        printf("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РІС‹РїРѕР»РЅСЏРµРјРѕРіРѕ РґРµР№СЃС‚РІРёСЏ: ");
         scanf("%d", &input);
         switch (input) {
             case 1:
@@ -122,17 +120,17 @@ int main() {
                 break;
             case 0:
                 diz();
-                printf("                        Завершение работы. До свидания!\n\n" );
+                printf("                        Р—Р°РІРµСЂС€РµРЅРёРµ СЂР°Р±РѕС‚С‹. Р”Рѕ СЃРІРёРґР°РЅРёСЏ!\n\n" );
                 break;
         default:
-            printf( "Неправильный ввод.\n" );
+            printf( "РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ РІРІРѕРґ.\n" );
             system("pause");
         }
     }
     return 0;
 }
 
-//1 - Добавить студента
+//1 - Р”РѕР±Р°РІРёС‚СЊ СЃС‚СѓРґРµРЅС‚Р°
 int zap(char *fname, int id) {
     diz();
     struct studinfo stud;
@@ -142,16 +140,16 @@ int zap(char *fname, int id) {
     stud.id = id;
     int isize = sizeof(stud);
     fseek(file, isize * (id - 1), SEEK_SET);
-    printf("                        ДОБАВЛЕНИЕ СТУДЕНТА\n\n");
-    printf("Введите имя\n");
+    printf("                        Р”РћР‘РђР’Р›Р•РќРР• РЎРўРЈР”Р•РќРўРђ\n\n");
+    printf("Р’РІРµРґРёС‚Рµ РёРјСЏ\n");
     scanf("%s", &stud.name);
-    printf("Введите фамилию\n");
+    printf("Р’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ\n");
     scanf("%s", &stud.fam);
-    printf("Введите группу\n");
+    printf("Р’РІРµРґРёС‚Рµ РіСЂСѓРїРїСѓ\n");
     scanf("%s", &stud.group);
-    printf("Введите номер студенческого\n");
+    printf("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ\n");
     scanf("%s", &stud.studnum);
-    printf("Введите дату рождения студента (цифрами через пробел, напр. '21 12 1999')\n");
+    printf("Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ СЃС‚СѓРґРµРЅС‚Р° (С†РёС„СЂР°РјРё С‡РµСЂРµР· РїСЂРѕР±РµР», РЅР°РїСЂ. '21 12 1999')\n");
     scanf("%d%d%d", &stud.data.day, &stud.data.month, &stud.data.year);
     fwrite(&stud, sizeof(stud), 1, file);
 
@@ -162,17 +160,17 @@ int zap(char *fname, int id) {
     fclose(lastID);
 
     printf("\n");
-    printf("Студент добавлен!\n\n");
+    printf("РЎС‚СѓРґРµРЅС‚ РґРѕР±Р°РІР»РµРЅ!\n\n");
     system("pause");
     return id;
 }
-//2 - Удаление студента
+//2 - РЈРґР°Р»РµРЅРёРµ СЃС‚СѓРґРµРЅС‚Р°
 int del(char *fname, int id) {
     struct studinfo stud;
     FILE *file = NULL;
     file = fopen(fname, "r+b");
 
-    printf("\nВведите номер студента, которого необходимо удалить: ");
+    printf("\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚СѓРґРµРЅС‚Р°, РєРѕС‚РѕСЂРѕРіРѕ РЅРµРѕР±С…РѕРґРёРјРѕ СѓРґР°Р»РёС‚СЊ: ");
     int temp_id;
     scanf("%d", &temp_id);
 
@@ -198,134 +196,134 @@ int del(char *fname, int id) {
     system("pause");
     return id;
 }
-//3 - Изменить данные о студенте
+//3 - РР·РјРµРЅРёС‚СЊ РґР°РЅРЅС‹Рµ Рѕ СЃС‚СѓРґРµРЅС‚Рµ
 void chan(char *fname) {
     struct studinfo stud;
     FILE *file = NULL;
     file = fopen(fname, "r+b");
 
-    printf("\nВведите номер студента, информация о котором будет изменена: ");
+    printf("\nР’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СЃС‚СѓРґРµРЅС‚Р°, РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєРѕС‚РѕСЂРѕРј Р±СѓРґРµС‚ РёР·РјРµРЅРµРЅР°: ");
     int temp_id;
     scanf("%d", &temp_id);
     diz();
-    printf("                        ИЗМЕНЕНИЕ ИНФОРМАЦИИ О СТУДЕНТЕ № %d\n\n", temp_id);
+    printf("                        РР—РњР•РќР•РќРР• РРќР¤РћР РњРђР¦РР Рћ РЎРўРЈР”Р•РќРўР• в„– %d\n\n", temp_id);
 
     int isize = sizeof(stud);
     fseek(file, isize * (temp_id - 1), SEEK_SET);
     int qq;
     qq = fread(&stud, sizeof(stud), 1, file);
-    printf("%d. %s %s. \n   Группа: %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
+    printf("%d. %s %s. \n   Р“СЂСѓРїРїР°: %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
 
-    printf("\nКакой параметр вы хотите изменить?\n");
-    printf("1 - Имя, 2 - Фамилия, 3 - Группа, 4 - Номер студенческого, 5 - дата рождения\n");
+    printf("\nРљР°РєРѕР№ РїР°СЂР°РјРµС‚СЂ РІС‹ С…РѕС‚РёС‚Рµ РёР·РјРµРЅРёС‚СЊ?\n");
+    printf("1 - РРјСЏ, 2 - Р¤Р°РјРёР»РёСЏ, 3 - Р“СЂСѓРїРїР°, 4 - РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ, 5 - РґР°С‚Р° СЂРѕР¶РґРµРЅРёСЏ\n");
     int input;
     scanf("%d", &input);
         switch (input) {
             case 1:
-                printf("Введите новое имя\n");
+                printf("Р’РІРµРґРёС‚Рµ РЅРѕРІРѕРµ РёРјСЏ\n");
                 scanf("%s", &stud.name);
                 break;
             case 2:
-                printf("Введите новую фамилию\n");
+                printf("Р’РІРµРґРёС‚Рµ РЅРѕРІСѓСЋ С„Р°РјРёР»РёСЋ\n");
                 scanf("%s", &stud.fam);
                 break;
             case 3:
-                printf("Введите новую группу\n");
+                printf("Р’РІРµРґРёС‚Рµ РЅРѕРІСѓСЋ РіСЂСѓРїРїСѓ\n");
                 scanf("%s", &stud.group);
                 break;
             case 4:
-                printf("Введите новый номер студенческого\n");
+                printf("Р’РІРµРґРёС‚Рµ РЅРѕРІС‹Р№ РЅРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ\n");
                 scanf("%s", &stud.studnum);
                 break;
             case 5:
-                printf("Введите дату рождения студента (цифрами через пробел, напр. '11 12 1999')\n\n");
+                printf("Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ СЃС‚СѓРґРµРЅС‚Р° (С†РёС„СЂР°РјРё С‡РµСЂРµР· РїСЂРѕР±РµР», РЅР°РїСЂ. '11 12 1999')\n\n");
                 scanf("%d%d%d", &stud.data.day,&stud.data.month,&stud.data.year);
                 break;
         default:
-            printf("Неправильный ввод.\n" );
+            printf("РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ РІРІРѕРґ.\n" );
         }
     fseek(file, isize * (temp_id - 1), SEEK_SET);
     fwrite(&stud, sizeof(stud), 1, file);
     fseek(file, 0, SEEK_SET);
     fclose(file);
-    printf("Информация успешно изменена.\n\n" );
+    printf("РРЅС„РѕСЂРјР°С†РёСЏ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРµРЅР°.\n\n" );
     system("pause");
 }
-//4 - Вывести список студентов
+//4 - Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ
 void pri(char *fname, int id) {
     diz();
     struct studinfo stud;
     FILE *file = NULL;
     file = fopen(fname, "r+b");
-    rewind(file); //Переход в начало строки
+    rewind(file); //РџРµСЂРµС…РѕРґ РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
 
-    printf("                        СПИСОК СТУДЕНТОВ \n\n");
+    printf("                        РЎРџРРЎРћРљ РЎРўРЈР”Р•РќРўРћР’ \n\n");
     int i = 1, qq;
     for (i; i <= id; i++){
         qq = fread(&stud, sizeof(stud), 1, file);
-        printf("%d. %s %s. \n   Группа: %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
+        printf("%d. %s %s. \n   Р“СЂСѓРїРїР°: %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
     }
 
     fclose(file);
     system("pause");
 }
-//5 - Вывести список студентов по фильтру
+//5 - Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ РїРѕ С„РёР»СЊС‚СЂСѓ
 void fil(char *fname, int id) {
     diz();
     struct studinfo stud;
     FILE *file = NULL;
     file = fopen(fname, "r+b");
-    rewind(file); //Переход в начало строки
+    rewind(file); //РџРµСЂРµС…РѕРґ РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
     int input = 0;
 
-    printf("ФИЛЬТРЫ:\n\n");
-    printf("1 - Вывести студентов из группы... \n");
-    printf("2 - Вывести студентов, рождённых в году... \n");
-    printf("3 - Вывести студентов, рождённых в месяце... \n");
-    printf("4 - Вывести студентов, старше ... лет\n\n");
+    printf("Р¤РР›Р¬РўР Р«:\n\n");
+    printf("1 - Р’С‹РІРµСЃС‚Рё СЃС‚СѓРґРµРЅС‚РѕРІ РёР· РіСЂСѓРїРїС‹... \n");
+    printf("2 - Р’С‹РІРµСЃС‚Рё СЃС‚СѓРґРµРЅС‚РѕРІ, СЂРѕР¶РґС‘РЅРЅС‹С… РІ РіРѕРґСѓ... \n");
+    printf("3 - Р’С‹РІРµСЃС‚Рё СЃС‚СѓРґРµРЅС‚РѕРІ, СЂРѕР¶РґС‘РЅРЅС‹С… РІ РјРµСЃСЏС†Рµ... \n");
+    printf("4 - Р’С‹РІРµСЃС‚Рё СЃС‚СѓРґРµРЅС‚РѕРІ, СЃС‚Р°СЂС€Рµ ... Р»РµС‚\n\n");
 
-    printf("Введите номер нужного фильтра: ");
+    printf("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РЅСѓР¶РЅРѕРіРѕ С„РёР»СЊС‚СЂР°: ");
 
     scanf("%d", &input);
     if (input == 1){
         struct studinfo gro;
-        printf("\nВведите группу: ");
+        printf("\nР’РІРµРґРёС‚Рµ РіСЂСѓРїРїСѓ: ");
         scanf("%s", &gro.group);
         diz();
-        printf("                        СТУДЕНТЫ ИЗ ГРУППЫ %s \n\n", gro.group);
+        printf("                        РЎРўРЈР”Р•РќРўР« РР— Р“Р РЈРџРџР« %s \n\n", gro.group);
         int i = 1, qq;
         for (i; i <= id; i++){
             qq = fread(&stud, sizeof(stud), 1, file);
             if (strcmp(stud.group, gro.group) == 0) {
-                 printf("%d. %s %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
+                 printf("%d. %s %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
             }
         }
     }
     else if (input == 2){
         int ye;
-        printf("\nВведите год: ");
+        printf("\nР’РІРµРґРёС‚Рµ РіРѕРґ: ");
         scanf("%d", &ye);
         diz();
-        printf("                        СТУДЕНТЫ, РОЖДЕННЫЕ В %d ГОДУ\n\n", ye);
+        printf("                        РЎРўРЈР”Р•РќРўР«, Р РћР–Р”Р•РќРќР«Р• Р’ %d Р“РћР”РЈ\n\n", ye);
         int i = 1, qq;
         for (i; i <= id; i++){
             qq = fread(&stud, sizeof(stud), 1, file);
             if (stud.data.year == ye){
-                 printf("%d. %s %s. \n Группа: %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
+                 printf("%d. %s %s. \n Р“СЂСѓРїРїР°: %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
             }
         }
     }
     else if (input == 3){
         int mo;
-        printf("\nВведите месяц (цифрой): ");
+        printf("\nР’РІРµРґРёС‚Рµ РјРµСЃСЏС† (С†РёС„СЂРѕР№): ");
         scanf("%d", &mo);
         diz();
-        printf("                        СТУДЕНТЫ, РОЖДЁННЫЕ В МЕСЯЦЕ %d:\n\n", mo);
+        printf("                        РЎРўРЈР”Р•РќРўР«, Р РћР–Р”РЃРќРќР«Р• Р’ РњР•РЎРЇР¦Р• %d:\n\n", mo);
         int i = 1, qq;
         for (i; i <= id; i++){
             qq = fread(&stud, sizeof(stud), 1, file);
             if (stud.data.month == mo){
-                 printf("%d. %s %s. \n Группа: %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
+                 printf("%d. %s %s. \n Р“СЂСѓРїРїР°: %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
             }
         }
     }
@@ -338,27 +336,27 @@ void fil(char *fname, int id) {
         int now_mon = (ti->tm_mon);
 
         int age;
-        printf("\nСтарше скольки лет должы быть студенты? ");
+        printf("\nРЎС‚Р°СЂС€Рµ СЃРєРѕР»СЊРєРё Р»РµС‚ РґРѕР»Р¶С‹ Р±С‹С‚СЊ СЃС‚СѓРґРµРЅС‚С‹? ");
         scanf("%d", &age);
         diz();
-        printf("                        СТУДЕНТЫ СТАРШЕ %d ЛЕТ\n", age);
-        printf("                          (Текущий год: %d)\n\n", now_year);
+        printf("                        РЎРўРЈР”Р•РќРўР« РЎРўРђР РЁР• %d Р›Р•Рў\n", age);
+        printf("                          (РўРµРєСѓС‰РёР№ РіРѕРґ: %d)\n\n", now_year);
         int i = 1, qq;
         for (i; i <= id; i++){
             qq = fread(&stud, sizeof(stud), 1, file);
             if ((now_year - stud.data.year) > age) {
-                 printf("%d. %s %s. \n Группа: %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
+                 printf("%d. %s %s. \n Р“СЂСѓРїРїР°: %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud.id, stud.name, stud.fam, stud.group, stud.studnum, stud.data.day, stud.data.month, stud.data.year);
             }
         }
 
     }
     else
-        printf( "Несуществующий фильтр.\n" );
+        printf( "РќРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ С„РёР»СЊС‚СЂ.\n" );
 
     fclose(file);
     system("pause");
 }
-//6 - Вывести отстортированный список студентов
+//6 - Р’С‹РІРµСЃС‚Рё РѕС‚СЃС‚РѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Р№ СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ
 void sort(char *fname, int id) {
     diz();
     struct studinfo stud[N];
@@ -366,13 +364,13 @@ void sort(char *fname, int id) {
     FILE *file = NULL;
     file = fopen(fname, "r+b");
     int input = 0;
-    rewind(file); //Переход в начало строки
+    rewind(file); //РџРµСЂРµС…РѕРґ РІ РЅР°С‡Р°Р»Рѕ СЃС‚СЂРѕРєРё
 
-    printf("СОРТИРОВКИ:\n\n");
-    printf("1 - Сортировка по году рождения\n");
-    printf("2 - Сортировка по имени\n\n");
+    printf("РЎРћР РўРР РћР’РљР:\n\n");
+    printf("1 - РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РіРѕРґСѓ СЂРѕР¶РґРµРЅРёСЏ\n");
+    printf("2 - РЎРѕСЂС‚РёСЂРѕРІРєР° РїРѕ РёРјРµРЅРё\n\n");
 
-    printf("Введите номер нужной сортировки: ");
+    printf("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РЅСѓР¶РЅРѕР№ СЃРѕСЂС‚РёСЂРѕРІРєРё: ");
 
     int i, j, qq;
     for (i = 1; i <= id; i++){
@@ -382,7 +380,7 @@ void sort(char *fname, int id) {
     scanf("%d", &input);
     diz();
     if (input == 1){
-        printf("              СПИСОК СТУДЕНТОВ, ОТСТОРИРОВАННЫЙ ПО ГОДУ РОЖДЕНИЯ\n\n");
+        printf("              РЎРџРРЎРћРљ РЎРўРЈР”Р•РќРўРћР’, РћРўРЎРўРћР РР РћР’РђРќРќР«Р™ РџРћ Р“РћР”РЈ Р РћР–Р”Р•РќРРЇ\n\n");
         for (i = 1; i <= (id - 1); i++){
             for (j = 1; j <= (id - 1); j++){
                 if (stud[j].data.year > stud[j+1].data.year){
@@ -394,7 +392,7 @@ void sort(char *fname, int id) {
         }
     }
     else if (input == 2){
-        printf("              СПИСОК СТУДЕНТОВ, ОТСТОРИРОВАННЫЙ ПО ИМЕНИ:\n\n");
+        printf("              РЎРџРРЎРћРљ РЎРўРЈР”Р•РќРўРћР’, РћРўРЎРўРћР РР РћР’РђРќРќР«Р™ РџРћ РРњР•РќР:\n\n");
         for (i = 1; i <= (id - 1); i++){
             for (j = 1; j <= (id - 1); j++){
                 if (strcmp(stud[j].name,stud[j+1].name) > 0){
@@ -406,32 +404,31 @@ void sort(char *fname, int id) {
         }
     }
     else
-        printf( "Несуществующая сортировка.\n" );
+        printf( "РќРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°.\n" );
 
 
     for (i = 1; i <= id; i++){
-        printf("%d. %s %s. \n   Группа: %s. Номер студенческого: %s. Дата рождения: %d.%d.%d \n", stud[i].id, stud[i].name, stud[i].fam, stud[i].group, stud[i].studnum, stud[i].data.day, stud[i].data.month, stud[i].data.year);
+        printf("%d. %s %s. \n   Р“СЂСѓРїРїР°: %s. РќРѕРјРµСЂ СЃС‚СѓРґРµРЅС‡РµСЃРєРѕРіРѕ: %s. Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: %d.%d.%d \n", stud[i].id, stud[i].name, stud[i].fam, stud[i].group, stud[i].studnum, stud[i].data.day, stud[i].data.month, stud[i].data.year);
     }
 
     fclose(file);
     system("pause");
 }
-//7 - Сведения о разработчиках
+//7 - РЎРІРµРґРµРЅРёСЏ Рѕ СЂР°Р·СЂР°Р±РѕС‚С‡РёРєР°С…
 void razr() {
     diz();
-    printf("Данный проект был выполнен студентками\n");
-    printf("Колледжа Космического Машиностроения и Технологий\n");
-    printf("Обучающимися по специальности 09.02.03 - \nПрограммирование в компьютерных системах\n");
-    printf("В группе П1-15\n");
-    printf("Лемешкиной К.А. и Романовой Е.В.\n\n");
-    printf("Классный руководитель - Гусятинер Л.Б.\n");
-    printf("Королёв, 2017.\n\n");
+    printf("Р”Р°РЅРЅС‹Р№ РїСЂРѕРµРєС‚ Р±С‹Р» РІС‹РїРѕР»РЅРµРЅ СЃС‚СѓРґРµРЅС‚РєР°РјРё\n");
+    printf("РљРѕР»Р»РµРґР¶Р° РљРѕСЃРјРёС‡РµСЃРєРѕРіРѕ РњР°С€РёРЅРѕСЃС‚СЂРѕРµРЅРёСЏ Рё РўРµС…РЅРѕР»РѕРіРёР№\n");
+    printf("РћР±СѓС‡Р°СЋС‰РёРјРёСЃСЏ РїРѕ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё 09.02.03 - \nРџСЂРѕРіСЂР°РјРјРёСЂРѕРІР°РЅРёРµ РІ РєРѕРјРїСЊСЋС‚РµСЂРЅС‹С… СЃРёСЃС‚РµРјР°С…\n");
+    printf("Р’ РіСЂСѓРїРїРµ Рџ1-15\n");
+    printf("Р›РµРјРµС€РєРёРЅРѕР№ Рљ.Рђ. Рё Р РѕРјР°РЅРѕРІРѕР№ Р•.Р’.\n\n");
+    printf("РљР»Р°СЃСЃРЅС‹Р№ СЂСѓРєРѕРІРѕРґРёС‚РµР»СЊ - Р“СѓСЃСЏС‚РёРЅРµСЂ Р›.Р‘.\n");
+    printf("РљРѕСЂРѕР»С‘РІ, 2017.\n\n");
     system("pause");
 }
 
-//Дизайн
+//Р”РёР·Р°Р№РЅ
 void diz() {
     system("cls");
     system("color 3B");
 }
-
