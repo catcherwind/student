@@ -341,6 +341,7 @@ void fil(char *fname, int id) {
         diz();
         printf("                        СТУДЕНТЫ СТАРШЕ %d ЛЕТ\n", age);
         printf("                          (Текущий год: %d)\n\n", now_year);
+        printf("                     (пока не учитывает месяца и дни :с)\n", ye);
         int i = 1, qq;
         for (i; i <= id; i++){
             qq = fread(&stud, sizeof(stud), 1, file);
